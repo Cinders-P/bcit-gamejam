@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="2018.01.23" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="32" tileheight="32" infinite="0" nextobjectid="14">
+<map version="1.0" tiledversion="1.1.2" orientation="orthogonal" renderorder="right-down" width="16" height="14" tilewidth="32" tileheight="32" infinite="0" nextobjectid="14">
  <tileset firstgid="1" name="ST-Schl-I02" tilewidth="32" tileheight="32" tilecount="400" columns="8">
   <image source="../sprites/environment/ST-Schl-I02.png" trans="ffffff" width="256" height="1600"/>
  </tileset>
@@ -14,6 +14,12 @@
  </tileset>
  <tileset firstgid="1361" name="ST-Room-I02" tilewidth="32" tileheight="32" tilecount="280" columns="8">
   <image source="../sprites/environment/ST-Room-I02.png" width="256" height="1120"/>
+ </tileset>
+ <tileset firstgid="1641" name="nastu1" tilewidth="32" tileheight="32" tilecount="12" columns="4">
+  <image source="../sprites/items/nastu1.png" width="128" height="96"/>
+ </tileset>
+ <tileset firstgid="1653" name="hinanset01" tilewidth="32" tileheight="32" tilecount="20" columns="4">
+  <image source="../sprites/items/hinanset01.png" width="128" height="160"/>
  </tileset>
  <layer name="Floor" width="16" height="14">
   <data encoding="csv">
@@ -132,6 +138,24 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="items" width="16" height="14">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,1645,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1313,1314,1315,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1316,1317,1318,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1319,1320,1321,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,1668,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>

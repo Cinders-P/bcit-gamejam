@@ -1,10 +1,10 @@
 --local items = require "src/items"
-local potion = require "src/items/potion"
+local diary = require "src/items/diary"
 local knife = require "src/items/knife"
-local car = require "src/items/car"
-local figure = require "src/items/figure"
+local watermelon = require "src/items/watermelon"
 local book = require "src/items/book"
-local drink = require "src/items/drink"
+local flashlight = require "src/items/flashlight"
+local plush = require "src/items/plush"
 
 
 local inventory = {
@@ -48,22 +48,23 @@ function view_inv()
   
   
   love.graphics.setColor(255,255,255,inventory.alphas[1])
-  print_item(potion,722,315)
+  print_item(diary,715,312)
   
   love.graphics.setColor(255,255,255,inventory.alphas[2])
   print_item(knife,760,310)
   
   love.graphics.setColor(255,255,255,inventory.alphas[3])
-  love.graphics.draw(car.sprite,car.quad,715,413,55,.3,.3)
+  print_item(watermelon,715,375)
   
   love.graphics.setColor(255,255,255,inventory.alphas[4])
-  print_item(figure,757,360)
+  print_item(book,760,372)
   
   love.graphics.setColor(255,255,255,inventory.alphas[5])
-  love.graphics.draw(book.sprite,book.quad,715,470,55,.9,.9)
+  --love.graphics.draw(flashlight.sprite,flashlight.quad,715,470,55,.9,.9)
+  print_item(flashlight,715,435)
   
   love.graphics.setColor(255,255,255,inventory.alphas[6])
-  print_item(drink,760,430)
+  print_item(plush,762,427)
   
   love.graphics.setColor(255,255,255)
 end
