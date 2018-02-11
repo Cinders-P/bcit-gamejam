@@ -2,7 +2,7 @@ local graphics_util = require "src/graphics-util"
 local dirs = require "src/constants/directions"
 local states = require "src/constants/states"
 
-local player = {act_x = 200, act_y = 200, grid_x = 232, grid_y = 232, speed = 5}
+local player = {act_x = 200, act_y = 200, grid_x = 232, grid_y = 232, speed = 5, scare = false}
 player.animation = graphics_util.createAnimation(love.graphics.newImage("sprites/characters/tori_gaku_01b.png"), 32, 48)
 player.dir = dirs.SOUTH
 player.state = states.IDLE
@@ -40,15 +40,20 @@ function player.move(key,dt)
     player.grid_y = player.grid_y + 32 
     player.dir = dirs.SOUTH
 	end
-  
+  if love.keyboard.isDown('p') then
+    player.scare = true
+  end
   player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
   player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
   --[[
-  --Lets use this when he's scared ;)
-  --Violently shakes and controls are reversed 
-  player.act_y = (player.act_y - player.grid_y)  * player.speed * dt
-  player.act_x = (player.act_x - player.grid_x)  * player.speed * dt
-  --]]
+  if player.scare then
+    player.act_y = (player.act_y - player.grid_y)  * player.speed * dt  --Ok, it looks more like his soul is being ripped out or smthing..
+    player.act_x = (player.act_x - player.grid_x)  * player.speed * dt
+  else
+    player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
+    player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
+  end
+  ]]
 end
 
 return player
