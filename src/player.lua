@@ -14,18 +14,18 @@ function player.getPlayerFrame()
 end
 
 function player.draw(x, y)
-    love.graphics.draw(player.animation.spriteSheet,player.getPlayerFrame(),x,y,0,2,2)
+    love.graphics.draw(player.animation.spriteSheet,player.getPlayerFrame(),x,y,0,2,2,0,-16)
 end
 
 function player.addTime(dt)
     player.animation.currentTime = player.animation.currentTime + dt
   
 end
-
+--[[
 function player.move(key,dt)
   
   if love.keyboard.isDown('d') then
-    player.grid_x = player.grid_x + gridval 
+    player.grid_x = player.grid_x + gridval
     player.dir = dirs.EAST
   end
     
@@ -45,9 +45,10 @@ function player.move(key,dt)
   if love.keyboard.isDown('p') then
     player.scare = true
   end
+  
   player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
   player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
-  --[[
+  
   if player.scare then
     player.act_y = (player.act_y - player.grid_y)  * player.speed * dt  --Ok, it looks more like his soul is being ripped out or smthing..
     player.act_x = (player.act_x - player.grid_x)  * player.speed * dt
@@ -55,7 +56,33 @@ function player.move(key,dt)
     player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
     player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
   end
-  ]]
+  
+end
+--]]
+function love.keypressed(key)
+  
+  if key == 'd' then
+    player.grid_x = player.grid_x + gridval
+    player.dir = dirs.EAST
+  end
+    
+	if key == 'a' then
+		player.grid_x = player.grid_x - gridval
+    player.dir = dirs.WEST
+  end
+  
+	if key == 'w' then
+      player.grid_y = player.grid_y - gridval
+    player.dir = dirs.NORTH
+  end
+	if key == 's' then
+    player.grid_y = player.grid_y + gridval 
+    player.dir = dirs.SOUTH
+	end
+  if love.keyboard.isDown('p') then
+    player.scare = true
+  end
+  
 end
 
 return player

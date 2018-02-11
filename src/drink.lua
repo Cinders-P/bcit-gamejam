@@ -20,6 +20,7 @@ function draw_drink(other_x,other_y)
       -- Object disappears from map
       if love.keyboard.isDown('e') then
         drink.down = false
+        inv_insert(drink,image,drink.img)
       end
       
   end

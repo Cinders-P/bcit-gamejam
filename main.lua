@@ -3,6 +3,7 @@ local sti = require "lib/sti"
 local player = {}
 local map = {}
 local drink = require "src/drink"
+local inventory = require "src/inventory"
 
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -16,8 +17,10 @@ end
 
 function love.update(dt)
     player.addTime(dt)
-    player.move(key,dt)
+    --player.move(key,dt)
     
+    player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
+    player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
     
 end
 
