@@ -3,7 +3,6 @@ local sti = require "lib/sti"
 local inspect = require "lib/inspect"
 
 local player, world, map
-local drink = require "src/items/drink"
 local inventory = require "src/inventory"
 local viewInvToggle = true
 
