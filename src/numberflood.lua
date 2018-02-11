@@ -17,22 +17,25 @@ local data = {
 local sum = 0
 local i = 51
 local char = 1325
-
+local flag = true
 function numflood(dt)
-  sum = sum + dt
-  if (i-1) - math.floor((i-1)/16)*16 == 0 then
-    i = i + 1
-  end
-  if sum >= 1 then
-    sum = 0
-    data[i] = 1325
-    i = i + 1
-    if i - math.floor(i/16)*16 == 0 then
-      i = i+ 1
+  if flag then
+    sum = sum + dt
+    if (i-1) - math.floor((i-1)/16)*16 == 0 then
+      i = i + 1
     end
-  end
-  if i == 52 then
-    return true
+    if sum >= 1 then
+      sum = 0
+      data[i] = 1325
+      i = i + 1
+      if i - math.floor(i/16)*16 == 0 then
+        i = i+ 1
+      end
+    end
+    if i >= 206 then
+      flag = false
+      return true
+    end
   end
 end
 

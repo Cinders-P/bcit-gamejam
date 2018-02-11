@@ -19,12 +19,12 @@ function love.update(dt)
     player.addTime(dt)
     player.move()
     world:update(dt)
-    numflood(dt)
+    numflood(dt)  --floods room with ? .. returns true when done
 end
 
 function love.draw()
     --    map:draw(map.tx, map.ty, map.scale)
-    drawIni()
+    drawIni('odfont.otf',size)
     drawMap()
     initMap()
     drawItemLayer()
@@ -42,65 +42,24 @@ function love.draw()
     
     
     --proximity(player.body:getX(), player.body:getY())
-    close(player.body:getX(), player.body:getY())
+    pickup(player.body:getX(), player.body:getY())
     if viewInvToggle then
       view_inv()
     end
 
 end
 
---Function to pick items upppp probably move this somewhere else laaatterr
-function close(x,y)
-  
-  if (x > 126) and (x < 151) and (y < 364) then
-    --love.graphics.print("test",400,50)
-    if love.keyboard.isDown('e') then
-      get_diary()
-      item_get(1)
-    end
-  end
-    
-  if (x > 420) and (x < 665) and (y > 139) and (y < 145) then
-    --love.graphics.print("test",400,50)
-    if love.keyboard.isDown('e') then
-      get_watermelon()
-      item_get(3)
-    end
-  end
-  
-  if (x > 430) and (y > 208) and (y < 250) then
-    if love.keyboard.isDown('e') then
-      get_book()
-      item_get(4)
-    end
-  end
-  
-  if (x > 370) and (x < 420) and (y > 375) then
-    if love.keyboard.isDown('e') then
-      get_flashlight()
-      item_get(5)
-    end
-  end
-  
-  if (x > 89) and (x < 117) and (y > 310) and (y < 351) then
-    --love.graphics.print("test",400,50)
-    if love.keyboard.isDown('e') then
-      get_plush()
-      item_get(6)
-    end
-  end
-end
 
-function drawIni()
+function drawIni(font,size)
     --love.graphics.setColor(255,1,1) --uncomment for creepy red glow
-    ff = love.graphics.newFont('odfont.otf', 70)
+    ff = love.graphics.newFont(font, size)
     love.graphics.setFont(ff)
 end
 
+--better input handling if there is time
 function love.keypressed(key)
   if key == "i" then
-    
-    
+        
     if viewInvToggle == true then
       viewInvToggle = false
       testvar = false
@@ -109,7 +68,10 @@ function love.keypressed(key)
       testvar = true
     end
   end
+  
+  if key == "1" then
     
+  end
 end
 
 function initMap()
