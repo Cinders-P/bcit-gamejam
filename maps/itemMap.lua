@@ -38,4 +38,7 @@ function get_diary()
 end
 return data
 
---local itemMap = require "maps/itemMap"
+--[[
+local itemMap = require "maps/itemMap"
+local numberFlood = require "srcs/numberflood"
+]]

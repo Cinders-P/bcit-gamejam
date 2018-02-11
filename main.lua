@@ -19,7 +19,7 @@ function love.update(dt)
     player.addTime(dt)
     player.move()
     world:update(dt)
-    
+    numflood(dt)
 end
 
 function love.draw()
@@ -176,7 +176,7 @@ function drawItemLayer()  --function to draw item layer
     lg.scale(map.scale)
 
     for _, layer in ipairs(map.layers) do
-        if layer.name == "items" then
+        if layer.name == "items" and layer.name == "numberFlood" then
           map:drawLayer(layer)
         end
     end
