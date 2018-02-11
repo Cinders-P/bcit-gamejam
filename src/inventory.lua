@@ -48,7 +48,7 @@ function view_inv()
   
   love.graphics.rectangle('fill',inventory.pos_x + 50,inventory.pos_y + 135,35,40,5,5)
   
-  drawIni('odfont.otf',35)
+  drawIni(35)
   love.graphics.setColor(255,255,255,inventory.alphas[1])
   print_item(diary,inventory.pos_x + 5,inventory.pos_y + 7)
   love.graphics.print("1",inventory.pos_x + 15,inventory.pos_y  + 30)
@@ -88,7 +88,15 @@ function pickup(x,y)
       item_get(1)
     end
   end
-    
+  
+  if (x < 150) and (y > 175) and (y < 245) then
+    --love.graphics.print("test",400,50)
+    if love.keyboard.isDown('e') then
+      get_knife()
+      item_get(2)
+    end
+  end
+  
   if (x > 420) and (x < 665) and (y > 139) and (y < 145) then
     --love.graphics.print("test",400,50)
     if love.keyboard.isDown('e') then

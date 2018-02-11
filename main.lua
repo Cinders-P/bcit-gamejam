@@ -6,6 +6,9 @@ local player, world, map
 local inventory = require "src/inventory"
 local viewInvToggle = true
 
+local text = nil
+local sum = 0
+
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
     initMap()
@@ -20,14 +23,19 @@ function love.update(dt)
     player.move()
     world:update(dt)
     numflood(dt)  --floods room with ? .. returns true when done
+    
+    if text then 
+      erasetext(dt)
+    end
 end
 
 function love.draw()
     --    map:draw(map.tx, map.ty, map.scale)
-    drawIni('odfont.otf',size)
+    drawIni(100)
     drawMap()
     initMap()
     drawItemLayer()
+    
     
     --[[
     comment out this chunk to enable/disable collision debug view
@@ -40,19 +48,20 @@ function love.draw()
     --love.graphics.print("Player x =" .. player.body:getX() .."\nPlayer y ="..player.body:getY(),50,50)
     love.graphics.setColor(255,255,255)
     
-    
-    --proximity(player.body:getX(), player.body:getY())
     pickup(player.body:getX(), player.body:getY())
     if viewInvToggle then
       view_inv()
     end
-
+  
+    if text then
+      diagBox(text)
+    end
 end
 
 
-function drawIni(font,size)
+function drawIni(size)
     --love.graphics.setColor(255,1,1) --uncomment for creepy red glow
-    ff = love.graphics.newFont(font, size)
+    ff = love.graphics.newFont('odfont.otf', size)
     love.graphics.setFont(ff)
 end
 
@@ -70,7 +79,45 @@ function love.keypressed(key)
   end
   
   if key == "1" then
-    
+    if inventory.acquired[1] then
+      drawIni(100)
+      diag("How could I read someone's diary!?!?")
+    end
+  end
+  
+  if key == "2" then
+    if inventory.acquired[2] then
+      drawIni(100)
+      diag("Oooo...shiny.")
+    end
+  end
+  
+  if key == "3" then
+    if inventory.acquired[3] then
+      drawIni(100)
+      diag("If only I could cut it open..")
+    end
+  end
+  
+  if key == "4" then
+    if inventory.acquired[4] then
+      drawIni(100)
+      diag("Free book! ")
+    end
+  end
+  
+  if key == "5" then
+    if inventory.acquired[5] then
+      drawIni(100)
+      diag("It's out of batteries....")
+    end
+  end
+  
+  if key == "6" then 
+    if inventory.acquired[6] then
+      drawIni(100)
+      diag("My preciousssss...")
+    end
   end
 end
 
@@ -152,4 +199,25 @@ function drawItemLayer()  --function to draw item layer
     lg.setCanvas(curr_canvas)
     lg.draw(map.canvas)
     lg.pop()
+end
+
+function diag(string)
+  text = string
+end
+function erasetext(dt)
+  sum = sum + dt
+  if sum >= 5 then
+    sum = 0
+    text = nil
+  end
+end
+function diagBox(text)
+  
+  love.graphics.setColor(180,180,180)
+  love.graphics.rectangle('fill',20,400,650,65)
+  love.graphics.setColor(255,255,255)
+  love.graphics.setLineWidth(5)
+  love.graphics.rectangle('line',20,400,650,65)
+  love.graphics.setColor(255,255,255)
+  love.graphics.print(text,25,400)
 end

@@ -3,7 +3,7 @@ local data = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1645, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 1665, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 239, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -21,6 +21,11 @@ end
 
 function get_watermelon()
   data[30] = 0
+  local number = love.math.random(100)
+  if number <= 25 then
+    diag("The watermelon dropped on your head and you died..")
+    --player is ded
+  end
 end
 
 function get_flashlight()
@@ -35,6 +40,9 @@ function get_plush()
 end
 function get_diary()
   data[165] = 0
+end
+function get_knife()
+  data[66] = 0
 end
 return data
 
