@@ -18,13 +18,14 @@ function love.update(dt)
     player.addTime(dt)
     player.move(key,dt)
     
+    
 end
 
 function love.draw()
     map:draw(0, 0, 2, 2)
     player.draw(player.act_x,player.act_y)
-    draw_drink()
-    proximity(player.act_x,player.act_y)
+    draw_drink(player.act_x,player.act_y)
+    
     --comment out this chunk to enable/disable collision debug view
     love.graphics.setColor(255, 0, 0)
     map:box2d_draw(0, 0, 2, 2)
