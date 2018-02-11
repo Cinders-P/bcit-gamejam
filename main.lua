@@ -5,6 +5,8 @@ local map = {}
 local drink = require "src/drink"
 local inventory = require "src/inventory"
 
+
+
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
 
@@ -21,18 +23,18 @@ function love.update(dt)
     player.act_y = player.act_y - ((player.act_y - player.grid_y) * dt * player.speed)
     player.act_x = player.act_x - ((player.act_x - player.grid_x) * player.speed * dt)
     
+    
 end
 
 function love.draw()
     map:draw(0, 0, 2, 2)
     
+    love.graphics.print("Player.y =" .. player.act_y,0,0)
+    
     drawini()
-    if drink.down then
-      draw_drink(player.act_x,player.act_x)
-    end
+    draw_drink()
     player.draw(player.act_x,player.act_y)
-    
-    
+    proximity(player.act_x,player.act_y)
     
     
     --comment out this chunk to enable/disable collision debug view
@@ -44,6 +46,6 @@ end
 
 function drawini()
   love.graphics.setColor(255,255,255)
-  ff = love.graphics.newFont('odfont.otf',150)
+  ff = love.graphics.newFont('odfont.otf',70)
   love.graphics.setFont(ff)
 end
