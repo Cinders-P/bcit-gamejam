@@ -3,6 +3,8 @@ local sti = require "lib/sti"
 local inspect = require "lib/inspect"
 
 local player, world, playerObject, map
+local drink = require "src/drink"
+local inventory = require "src/inventory"
 
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -15,7 +17,7 @@ function love.load(arg)
 
     player = require "src/player"
     player.obj = getPlayerObject()
-    player.obj.layer.draw = function () player.draw(1) end
+    player.obj.layer.draw = function() player.draw() end
     player.initPhysics(world)
 end
 
@@ -24,7 +26,6 @@ function love.update(dt)
     player.move()
     world:update(dt)
     map:setObjectCoordinates(player.obj.layer)
-    
 end
 
 function love.draw()
@@ -35,6 +36,15 @@ function love.draw()
 --    map:box2d_draw(0, 0, map.scale)
 --    love.graphics.setColor(255, 255, 255)
 
+    drawini()
+    draw_drink()
+    proximity(player.body:getX(), player.body:getY())
+end
+
+function drawini()
+    love.graphics.setColor(255, 255, 255)
+    ff = love.graphics.newFont('odfont.otf', 70)
+    love.graphics.setFont(ff)
 end
 
 function getPlayerObject()
