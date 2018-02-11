@@ -12,7 +12,7 @@ function draw_drink()
 end
 
 function proximity(other_x,other_y)
-  if (other_x < drink.pos_x + 90) and (other_y < drink.pos_y + 32) and (other_y > drink.pos_y - 130) then
+  if (other_x < 70) and (other_y < 205) and (other_y > 166) then
        
     if drink.down then
       sayHello()
@@ -20,7 +20,7 @@ function proximity(other_x,other_y)
     
     if love.keyboard.isDown('e') then
       drink.down = false
-      inv_insert(drink,image,drink.img)
+      insert_inv(drink,image,drink.img)
     end
     
     return true

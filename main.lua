@@ -35,7 +35,7 @@ function love.draw()
 --    love.graphics.setColor(255, 0, 0)
 --    map:box2d_draw(0, 0, map.scale)
 --    love.graphics.setColor(255, 255, 255)
-
+    
     drawini()
     draw_drink()
     proximity(player.body:getX(), player.body:getY())
