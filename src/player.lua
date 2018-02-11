@@ -22,7 +22,8 @@ function player.draw()
         player.animation.spriteSheet,
         player.getPlayerFrame(),
         b:getX() - 16,
-        b:getY() - 40
+        b:getY() - 40,
+        0
     )
 end
 
@@ -33,7 +34,7 @@ end
 function player.initPhysics(world)
     player.body = love.physics.newBody(world, 100, 140, "dynamic")
     player.body:setFixedRotation(true)
-    player.shape = love.physics.newRectangleShape(20, 20)
+    player.shape = love.physics.newCircleShape(11)
     player.fixture = love.physics.newFixture(player.body, player.shape)
 end
 
