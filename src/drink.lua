@@ -18,8 +18,8 @@ function proximity(other_x,other_y)
 end
 
 function trip()
-  ff = love.graphics.newFont('HBfont.ttf',150)
+  ff = love.graphics.newFont('odfont.otf',150)
       love.graphics.setColor(255,255,255)
       love.graphics.setFont(ff)
-      love.graphics.print("Hello",15,200)
+      love.graphics.print("HELLO",15,200)
 end
