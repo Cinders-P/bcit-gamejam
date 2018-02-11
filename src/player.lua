@@ -2,7 +2,7 @@ local graphics_util = require "src/graphics-util"
 local dirs = require "src/constants/directions"
 local states = require "src/constants/states"
 
-local player = {act_x = 320, act_y = 320, grid_x = 320, grid_y = 320, speed = 1, scare = false}
+local player = {act_x = 320, act_y = 320, grid_x = 320, grid_y = 320, speed = 5, scare = false}
 player.animation = graphics_util.createAnimation(love.graphics.newImage("sprites/characters/tori_gaku_01b.png"), 32, 48)
 player.dir = dirs.SOUTH
 player.state = states.IDLE
