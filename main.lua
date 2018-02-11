@@ -8,6 +8,7 @@ local viewInvToggle = true
 
 local text = nil
 local sum = 0
+local cut_flag = false
 
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -95,7 +96,21 @@ function love.keypressed(key)
   if key == "3" then
     if inventory.acquired[3] then
       drawIni(100)
-      diag("If only I could cut it open..")
+      if checkMelonState() == 0 then
+        diag("If only I could cut it open..")
+        
+        if inventory.acquired[2] then 
+          diag("Should I cut it open with my knife? y/n")
+          cut_flag = true
+        end
+      end
+      
+      if checkMelonState() == 1 then
+        diag("OMNOMNOMNOMNOMNOM!")
+        eatenQuad()
+      elseif  checkMelonState() == 2 then
+        diag("Was hungry.. Now just sad..")
+      end
     end
   end
   
@@ -117,6 +132,14 @@ function love.keypressed(key)
     if inventory.acquired[6] then
       drawIni(100)
       diag("My preciousssss...")
+    end
+  end
+  
+  if key == "y" then
+    if cut_flag then
+      drawIni(100)
+      diag("Deliciousness here I come...")
+      cutQuad()
     end
   end
 end
