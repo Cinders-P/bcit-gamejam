@@ -8,7 +8,7 @@ return {
   height = 13,
   tilewidth = 32,
   tileheight = 32,
-  nextobjectid = 1,
+  nextobjectid = 14,
   properties = {},
   tilesets = {
     {
@@ -199,7 +199,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 255, 0, 287, 0, 287, 0, 287, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 246, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        623, 624, 0, 246, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -265,6 +265,33 @@ return {
       }
     },
     {
+      type = "objectgroup",
+      name = "pl",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      draworder = "topdown",
+      properties = {},
+      objects = {
+        {
+          id = 7,
+          name = "player",
+          type = "",
+          shape = "rectangle",
+          x = 97,
+          y = 139.5,
+          width = 32,
+          height = 32,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["collidable"] = false
+          }
+        }
+      }
+    },
+    {
       type = "tilelayer",
       name = "Deco",
       x = 0,
@@ -289,7 +316,7 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 247, 0, 279, 0, 279, 0, 279, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 609, 0,
+        615, 616, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 609, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
@@ -318,8 +345,8 @@ return {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 117, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        615, 616, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        623, 624, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
       }
     },
     {
@@ -331,8 +358,8 @@ return {
       height = 13,
       visible = true,
       opacity = 1,
-      offsetx = 0.166667,
-      offsety = 12.5,
+      offsetx = 0,
+      offsety = 10,
       properties = {},
       encoding = "lua",
       data = {
@@ -358,7 +385,7 @@ return {
       y = 0,
       width = 15,
       height = 13,
-      visible = true,
+      visible = false,
       opacity = 1,
       offsetx = 0,
       offsety = 0,

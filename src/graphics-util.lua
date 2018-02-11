@@ -1,3 +1,4 @@
+local states = require "src/constants/states"
 local graphics_util = {}
 
 function graphics_util.createAnimation(image, width, height, duration)
@@ -21,11 +22,16 @@ function graphics_util.createAnimation(image, width, height, duration)
     return animation
 end
 
-function graphics_util.getCurrentFrame(animation, dir)
+function graphics_util.getCurrentFrame(animation, dir, state)
     local seq = animation.quads[dir]
+    if (state == states.IDLE) then
+        return seq[1]
+    end
+
     local seqLength = #animation.quads[dir]
     local frameNum = math.floor(animation.currentTime / animation.duration)
-    return seq[(frameNum % seqLength)+1]
+-- frameNum + 1 because it looks laggy if first frame duration is same as idle
+    return seq[((frameNum + 1) % seqLength) + 1]
 end
 
 return graphics_util
