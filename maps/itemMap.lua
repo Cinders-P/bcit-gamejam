@@ -22,9 +22,9 @@ end
 function get_watermelon()
   data[30] = 0
   local number = love.math.random(100)
-  if number <= 25 then
+  if number <= 100 then
     diag("The watermelon dropped on your head and you died..")
-    --player is ded
+    triggerdeath()
   end
 end
 

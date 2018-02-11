@@ -7,8 +7,10 @@ local inventory = require "src/inventory"
 local viewInvToggle = true
 
 local text = nil
-local sum = 0
+local sum = 0.5
 local cut_flag = false
+local eraseDelay = 5 
+local trigger = false
 
 function love.load(arg)
     love.graphics.setDefaultFilter("nearest", "nearest", 1)
@@ -24,9 +26,10 @@ function love.update(dt)
     player.move()
     world:update(dt)
     numflood(dt)  --floods room with ? .. returns true when done
-    
+    --onPad(player.body:getX(), player.body:getY())
+    pickup(player.body:getX(), player.body:getY())
     if text then 
-      erasetext(dt)
+      erasetext(dt,eraseDelay)
     end
 end
 
@@ -43,19 +46,17 @@ function love.draw()
     love.graphics.setColor(255, 0, 0)
     map:box2d_draw(0, 0, map.scale)
     love.graphics.setColor(255, 255, 255)
-    ]]
+    ]]    
     
-    love.graphics.setColor(25,255,25)
-    --love.graphics.print("Player x =" .. player.body:getX() .."\nPlayer y ="..player.body:getY(),50,50)
-    love.graphics.setColor(255,255,255)
-    
-    pickup(player.body:getX(), player.body:getY())
     if viewInvToggle then
       view_inv()
     end
-  
     if text then
       diagBox(text)
+    end
+    
+    if trigger then
+      death()
     end
 end
 
@@ -227,10 +228,10 @@ end
 function diag(string)
   text = string
 end
-function erasetext(dt)
+function erasetext(dt,delay)
   sum = sum + dt
-  if sum >= 5 then
-    sum = 0
+  if sum >= delay+0.5 then
+    sum = 0.5
     text = nil
   end
 end
@@ -243,4 +244,13 @@ function diagBox(text)
   love.graphics.rectangle('line',20,400,650,65)
   love.graphics.setColor(255,255,255)
   love.graphics.print(text,25,400)
+end
+
+function triggerdeath()
+  trigger = true
+end  
+
+function death()
+  dedimage = love.graphics.newImage('deathScreen.png')
+  love.graphics.draw(dedimage,0,0)
 end
