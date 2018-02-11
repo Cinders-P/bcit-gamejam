@@ -23,7 +23,8 @@ end
 
 function love.draw()
     map:draw(0, 0, 2, 2)
-    player.draw(player.act_x,player.act_y)
+    --player.draw(player.act_x,player.act_y)
+    player.draw(player.grid_x,player.grid_y)
     draw_drink(player.act_x,player.act_y)
     
     --comment out this chunk to enable/disable collision debug view
