@@ -1,4 +1,5 @@
-local ec = require "src/event-controller"
+local ec = require "src/events/controller"
+
 local object_controller = {}
 local objects = {}
 
@@ -9,8 +10,8 @@ local function testPoint(x, y, rect)
             y <= rect[3].y
 end
 
-function object_controller.init(m, i)
-    ec.init(m, object_controller, i)
+function object_controller.init(m)
+    ec.init(m)
     for _, o in pairs(m.objects) do
         objects[o.name] = {
             enabled = true,

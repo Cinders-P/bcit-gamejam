@@ -4,7 +4,7 @@ local inspect = require "lib/inspect"
 
 local gu = require "src/graphics-util"
 local oc = require "src/object-controller"
-local th = require "src/text-handler"
+local th = require "src/dialogue/text-handler"
 local player, world, map, objects
 local inventory = require "src/inventory/controller"
 local viewInvToggle = true
@@ -18,7 +18,7 @@ function love.load(arg)
     initMap()
     initPhysics()
     initPlayer()
-    oc.init(map, inventory)
+    oc.init(map)
     th.init(player)
     inventory.init(love.graphics.getWidth(), love.graphics.getHeight())
 end
