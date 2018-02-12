@@ -10,11 +10,7 @@ local inventory = require "src/inventory/controller"
 local viewInvToggle = true
 require "src/constants/munro"
 
-
-local text
-local sum = 0.5
 local cut_flag = false
-local eraseDelay = 5
 local trigger = false
 
 function love.load(arg)
@@ -32,9 +28,7 @@ function love.update(dt)
     player.addTime(dt)
     player.move()
     world:update(dt)
-    if text then
-        erasetext(dt, eraseDelay)
-    end
+    th.update(dt)
 end
 
 function love.draw()

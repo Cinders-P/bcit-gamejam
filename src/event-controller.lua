@@ -69,15 +69,15 @@ event_controller.eventMap = {
     end
   ,
     girlchair = function()
-        diag("If only I could sit...")
+--        diag("If only I could sit...")
     end
   ,
     locker = function()
-      diag("No, I don't need these.. yet..")
+--      diag("No, I don't need these.. yet..")
     end
   ,
     umbrella1 = function()
-      diag("Rain rain go away")
+--      diag("Rain rain go away")
     end
  
 }
