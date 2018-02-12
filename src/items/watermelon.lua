@@ -1,6 +1,7 @@
 local watermelon = {state = 0}
 
 --watermelon
+watermelon.name = "watermelon"
 watermelon.sprite = love.graphics.newImage("sprites/items/nastu1.png")
 watermelon.quad = love.graphics.newQuad(0,32,32,32,watermelon.sprite:getDimensions())
 watermelon.scale = 1

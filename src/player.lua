@@ -71,6 +71,23 @@ function player.move()
     end
 end
 
+function player.getLocs()
+    local forwardX, forwardY = player.body:getPosition()
+    -- some compensation so the interaction hitboxes can be better centered
+    forwardY = forwardY - 12
+    local dist = 20
+    if (player.dir == dirs.NORTH) then
+        forwardY = forwardY - dist
+    elseif (player.dir == dirs.SOUTH) then
+        forwardY = forwardY + dist
+    elseif (player.dir == dirs.WEST) then
+        forwardX = forwardX - dist
+    else
+        forwardX = forwardX + dist
+    end
+    return forwardX, forwardY, player.body:getPosition()
+end
+
 --[[
   
   if player.scare then

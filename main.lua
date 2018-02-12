@@ -2,14 +2,18 @@ local sti = require "lib/sti"
 -- print(inspect(foo)) to log an item
 local inspect = require "lib/inspect"
 
-local player, world, map
-local inventory = require "src/inventory"
+local gu = require "src/graphics-util"
+local oc = require "src/object-controller"
+local player, world, map, objects
+local inventory = require "src/inventory/controller"
 local viewInvToggle = true
+require "src/constants/munro"
 
-local text = nil
+
+local text
 local sum = 0.5
 local cut_flag = false
-local eraseDelay = 5 
+local eraseDelay = 5
 local trigger = false
 
 function love.load(arg)
@@ -17,7 +21,8 @@ function love.load(arg)
     initMap()
     initPhysics()
     initPlayer()
-    
+    oc.init(map, inventory)
+    inventory.init(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
 function love.update(dt)
@@ -25,124 +30,35 @@ function love.update(dt)
     player.addTime(dt)
     player.move()
     world:update(dt)
-    numflood(dt)  --floods room with ? .. returns true when done
-    --onPad(player.body:getX(), player.body:getY())
-    pickup(player.body:getX(), player.body:getY())
-    if text then 
-      erasetext(dt,eraseDelay)
+    if text then
+        erasetext(dt, eraseDelay)
     end
 end
 
 function love.draw()
-    --    map:draw(map.tx, map.ty, map.scale)
-    drawIni(100)
-    drawMap()
-    initMap()
-    drawItemLayer()
-    
-    
-    --[[
-    comment out this chunk to enable/disable collision debug view
-    love.graphics.setColor(255, 0, 0)
-    map:box2d_draw(0, 0, map.scale)
-    love.graphics.setColor(255, 255, 255)
-    ]]    
-    
+    gu.drawMap(map, player)
+
     if viewInvToggle then
-      view_inv()
+        inventory.draw()
     end
     if text then
-      diagBox(text)
+        diagBox(text)
     end
-    
+
     if trigger then
-      death()
+        death()
     end
-end
-
-
-function drawIni(size)
-    --love.graphics.setColor(255,1,1) --uncomment for creepy red glow
-    ff = love.graphics.newFont('odfont.otf', size)
-    love.graphics.setFont(ff)
 end
 
 --better input handling if there is time
 function love.keypressed(key)
-  if key == "i" then
-        
-    if viewInvToggle == true then
-      viewInvToggle = false
-      testvar = false
-    else
-      viewInvToggle = true
-      testvar = true
+    if key == "i" then
+        viewInvToggle = not viewInvToggle
+    elseif key == "space" then
+        oc.checkInteraction(player.getLocs())
+    elseif string.match(key, "%d") then
+        inventory.toggleHold(tonumber(key))
     end
-  end
-  
-  if key == "1" then
-    if inventory.acquired[1] then
-      drawIni(100)
-      diag("How could I read someone's diary!?!?")
-    end
-  end
-  
-  if key == "2" then
-    if inventory.acquired[2] then
-      drawIni(100)
-      diag("Oooo...shiny.")
-    end
-  end
-  
-  if key == "3" then
-    if inventory.acquired[3] then
-      drawIni(100)
-      if checkMelonState() == 0 then
-        diag("If only I could cut it open..")
-        
-        if inventory.acquired[2] then 
-          diag("Should I cut it open with my knife? y/n")
-          cut_flag = true
-        end
-      end
-      
-      if checkMelonState() == 1 then
-        diag("OMNOMNOMNOMNOMNOM!")
-        eatenQuad()
-      elseif  checkMelonState() == 2 then
-        diag("Was hungry.. Now just sad..")
-      end
-    end
-  end
-  
-  if key == "4" then
-    if inventory.acquired[4] then
-      drawIni(100)
-      diag("Free book! ")
-    end
-  end
-  
-  if key == "5" then
-    if inventory.acquired[5] then
-      drawIni(100)
-      diag("It's out of batteries....")
-    end
-  end
-  
-  if key == "6" then 
-    if inventory.acquired[6] then
-      drawIni(100)
-      diag("My preciousssss...")
-    end
-  end
-  
-  if key == "y" then
-    if cut_flag then
-      drawIni(100)
-      diag("Deliciousness here I come...")
-      cutQuad()
-    end
-  end
 end
 
 function initMap()
@@ -165,92 +81,33 @@ function initPlayer()
     player.initPhysics(world)
 end
 
--- modified version of Map:draw() from STI
-function drawMap()
-    local lg = love.graphics
-    local curr_canvas = lg.getCanvas()
-    lg.setCanvas(map.canvas)
-    lg.clear()
-
-    lg.push()
-    lg.origin()
-    lg.translate(map.tx or 0, map.ty or 0)
-    lg.scale(map.scale)
-
-    for _, layer in ipairs(map.layers) do
-        if layer.name == "pl" then
-            player.draw()
-        elseif layer.visible and layer.opacity > 0 then 
-            map:drawLayer(layer)
-        end
-    end
-    
-    lg.pop()
-
-    -- Draw canvas at 0,0; this fixes scissoring issues
-    -- Map is scaled to correct scale so the right section is shown
-    lg.push()
-    lg.origin()
-    lg.setCanvas(curr_canvas)
-    lg.draw(map.canvas)
-    lg.pop()
-end
-
-function drawItemLayer()  --function to draw item layer
-    
-    local lg = love.graphics
-    local curr_canvas = lg.getCanvas()
-    lg.setCanvas(map.canvas)
-    lg.clear()
-
-    lg.push()
-    lg.origin()
-    lg.translate(map.tx or 0, map.ty or 0)
-    lg.scale(map.scale)
-
-    for _, layer in ipairs(map.layers) do
-        if layer.name == "items" and layer.name == "numberFlood" then
-          map:drawLayer(layer)
-        end
-    end
-    
-    lg.pop()
-
-    -- Draw canvas at 0,0; this fixes scissoring issues
-    -- Map is scaled to correct scale so the right section is shown
-    lg.push()
-    lg.origin()
-    lg.setCanvas(curr_canvas)
-    lg.draw(map.canvas)
-    lg.pop()
-end
-
 function diag(string)
-  text = string
+    text = string
 end
-function erasetext(dt,delay)
-  sum = sum + dt
-  if sum >= delay+0.5 then
-    sum = 0.5
-    text = nil
-  end
+
+function erasetext(dt, delay)
+    sum = sum + dt
+    if sum >= delay + 0.5 then
+        sum = 0.5
+        text = nil
+    end
 end
+
 function diagBox(text)
-  
-  love.graphics.setColor(180,180,180)
-  love.graphics.rectangle('fill',20,400,650,65)
-  love.graphics.setColor(255,255,255)
-  love.graphics.setLineWidth(5)
-  love.graphics.rectangle('line',20,400,650,65)
-  love.graphics.setColor(255,255,255)
-  love.graphics.print(text,25,400)
+    love.graphics.setColor(20, 20, 20, 200)
+    love.graphics.rectangle('fill', 20, 400, 700, 65)
+    love.graphics.setColor(0, 0, 0, 130)
+    love.graphics.setLineWidth(10)
+    love.graphics.rectangle('line', 20, 400, 700, 65)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.printf(text, 35, 415, 600)
 end
 
 function triggerdeath()
-  trigger = true
-end  
+    trigger = true
+end
 
 function death()
-  dedimage = love.graphics.newImage('deathScreen.png')
-  love.graphics.draw(dedimage,0,0)
+    dedimage = love.graphics.newImage('deathScreen.png')
+    love.graphics.draw(dedimage, 0, 0)
 end

@@ -2,6 +2,7 @@ local graphics_util = require "src/graphics-util"
 
 local drink = {pos_x = 9,pos_y = 256, down = true}
 
+drink.name = drink
 drink.sprite = love.graphics.newImage("sprites/items/SI-Ffood01.png")
 drink.quad = love.graphics.newQuad(0,0,24,24,drink.sprite:getDimensions())
 drink.scale = 1.5

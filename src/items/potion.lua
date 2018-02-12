@@ -1,5 +1,6 @@
 local potion = {}
 
+potion.name = "potion"
 potion.sprite = love.graphics.newImage("sprites/items/SI-Card01.png")
 potion.quad = love.graphics.newQuad(27,72,18,24,potion.sprite:getDimensions())
 potion.scale = 1.2

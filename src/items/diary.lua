@@ -1,5 +1,6 @@
 local diary = {}
 
+diary.name = "diary"
 diary.sprite = love.graphics.newImage("sprites/environment/ST-Room-I02.png")
 diary.quad = love.graphics.newQuad(67,554,26,26,diary.sprite:getDimensions())
 diary.scale = 1.4

@@ -1,6 +1,7 @@
 local figure = {}
 
 --figure
+figure.name = "figure"
 figure.sprite = love.graphics.newImage("sprites/items/bldalpha.png")
 figure.quad = love.graphics.newQuad(290,400,37,55,figure.sprite:getDimensions())
 figure.scale = 1

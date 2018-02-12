@@ -34,4 +34,35 @@ function graphics_util.getCurrentFrame(animation, dir, state)
     return seq[((frameNum + 1) % seqLength) + 1]
 end
 
+-- modified version of Map:draw() from STI
+function graphics_util.drawMap(map, player)
+    local lg = love.graphics
+    local curr_canvas = lg.getCanvas()
+    lg.setCanvas(map.canvas)
+    lg.clear()
+
+    lg.push()
+    lg.origin()
+    lg.translate(map.tx or 0, map.ty or 0)
+    lg.scale(map.scale)
+
+    for _, layer in ipairs(map.layers) do
+        if layer.name == "pl" then
+            player.draw()
+        elseif layer.visible and layer.opacity > 0 then
+            map:drawLayer(layer)
+        end
+    end
+
+    lg.pop()
+
+    -- Draw canvas at 0,0; this fixes scissoring issues
+    -- Map is scaled to correct scale so the right section is shown
+    lg.push()
+    lg.origin()
+    lg.setCanvas(curr_canvas)
+    lg.draw(map.canvas)
+    lg.pop()
+end
+
 return graphics_util
