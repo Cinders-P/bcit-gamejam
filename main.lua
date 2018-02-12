@@ -4,6 +4,7 @@ local inspect = require "lib/inspect"
 
 local gu = require "src/graphics-util"
 local oc = require "src/object-controller"
+local th = require "src/text-handler"
 local player, world, map, objects
 local inventory = require "src/inventory/controller"
 local viewInvToggle = true
@@ -22,6 +23,7 @@ function love.load(arg)
     initPhysics()
     initPlayer()
     oc.init(map, inventory)
+    th.init(player)
     inventory.init(love.graphics.getWidth(), love.graphics.getHeight())
 end
 
@@ -37,12 +39,9 @@ end
 
 function love.draw()
     gu.drawMap(map, player)
-
+    th.draw()
     if viewInvToggle then
         inventory.draw()
-    end
-    if text then
-        diagBox(text)
     end
 
     if trigger then
@@ -52,7 +51,9 @@ end
 
 --better input handling if there is time
 function love.keypressed(key)
-    if key == "i" then
+    if th.isActive() then
+        th.onKey(key)
+    elseif key == "i" then
         viewInvToggle = not viewInvToggle
     elseif key == "space" then
         oc.checkInteraction(player.getLocs())
@@ -79,28 +80,6 @@ end
 function initPlayer()
     player = require "src/player"
     player.initPhysics(world)
-end
-
-function diag(string)
-    text = string
-end
-
-function erasetext(dt, delay)
-    sum = sum + dt
-    if sum >= delay + 0.5 then
-        sum = 0.5
-        text = nil
-    end
-end
-
-function diagBox(text)
-    love.graphics.setColor(20, 20, 20, 200)
-    love.graphics.rectangle('fill', 20, 400, 700, 65)
-    love.graphics.setColor(0, 0, 0, 130)
-    love.graphics.setLineWidth(10)
-    love.graphics.rectangle('line', 20, 400, 700, 65)
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.printf(text, 35, 415, 600)
 end
 
 function triggerdeath()

@@ -38,32 +38,33 @@ event_controller.eventMap = {
   ,  
     citrus = function()
         print("triggered")
-        diag("Test")
         deleteLayer("citrus")
     end
   ,
     flashlight = function()
         i.add("flashlight")
         print("triggered")
-        diag("Flashlight get..")
         deleteLayer("flashlight")
     end
   ,
     bluebook = function()
         print("triggered")
-        diag("Book get..")
         deleteLayer("bluebook")
     end
   ,
     rabbit = function()
         print("triggered")
-        diag("Rabbit get..")
         deleteLayer("rabbit")
     end
   ,
     diary = function()
         print("triggered")
-        diag("There's a lock preventing any morally ambigious decisions.")
+        love.event.push(
+            "text",
+            "read",
+            {"There's a lock preventing any morally ambiguous decisions.",
+            "Plus, we're good people, right?"}
+        )
         deleteLayer("diary")
     end
   ,
