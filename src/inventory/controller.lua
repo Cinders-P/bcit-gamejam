@@ -1,12 +1,13 @@
 local ui = require "src/inventory/ui"
 local im = require "src/inventory/item-map"
+local inspect = require "lib/inspect"
 
 local inventory = {}
 local acquired = {}
 local limit = 5
 local held
 
-local function clearHeld()
+function inventory.clearHeld()
     if held and im[held] then
         im[held].held = nil
     end
@@ -21,7 +22,7 @@ end
 
 function inventory.toggleHold(index)
     local old = held
-    clearHeld()
+    inventory.clearHeld()
     if acquired[index] then
         held = acquired[index].name
         if old == held then
@@ -51,6 +52,10 @@ end
 
 function inventory.draw()
     ui.draw(acquired, limit)
+end
+
+function inventory.getHeld()
+    return held
 end
 
 return inventory

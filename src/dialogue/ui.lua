@@ -15,7 +15,7 @@ local ui = {
 
 local function getNumCharacters()
     -- print at 24 characters per second
-    return ui.time * 24
+    return ui.time * 30
 end
 
 local function getTriangleOffset()
