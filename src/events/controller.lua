@@ -13,7 +13,13 @@ end
 function event_controller.trigger(name)
     if inventory.getHeld() then
         local f = item_event_map[name]
-        if f then f(inventory.getHeld()) end
+        if f then
+            f(inventory.getHeld())
+        else
+            love.event.push("text",
+            "read",
+                {"You put the two together, but nothing happens."})
+        end
         inventory.clearHeld()
     else
         local f = event_map[name]

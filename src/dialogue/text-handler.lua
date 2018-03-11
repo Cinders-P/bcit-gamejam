@@ -78,7 +78,7 @@ end
 
 function text_handler.update(dt)
      if text_handler.isActive() then
-        ui.time = ui.time + dt
+        ui.update(dt)
      end
 end
 

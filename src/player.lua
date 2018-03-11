@@ -12,6 +12,11 @@ local player = {
 }
 local animation = graphics_util.createAnimation(love.graphics.newImage("sprites/characters/tori_gaku_01b.png"), player.width, player.height)
 
+local function doIdle()
+    player.state = states.IDLE
+    player.body:setLinearVelocity(0, 0)
+end
+
 function player.getPlayerFrame()
     return graphics_util.getCurrentFrame(animation, player.dir, player.state)
 end
@@ -45,7 +50,7 @@ end
 function player.setWalking() player.state = states.WALKING end
 
 function player.move()
-    if player.stop then return end
+    if player.stop then doIdle() return end
 
     if love.keyboard.isDown('d') then
         player.setWalking()
@@ -67,10 +72,7 @@ function player.move()
         player.dir = dirs.SOUTH
         player.body:setLinearVelocity(0, player.speed)
 
-    else
-        player.state = states.IDLE
-        player.body:setLinearVelocity(0, 0)
-    end
+    else doIdle() end
 end
 
 function player.getLocs()

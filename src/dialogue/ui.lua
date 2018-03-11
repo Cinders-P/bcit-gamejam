@@ -7,15 +7,16 @@ local w = 700
 local h = 90
 local padding = 20
 
--- the choice that should show on the top half of the box
+local prevString = ""
+local buffer = 0
 local view = 1
 local ui = {
     time = 0
 }
 
 local function getNumCharacters()
-    -- print at 24 characters per second
-    return ui.time * 30
+    -- print at 40 characters per second
+    return ui.time * 40
 end
 
 local function getTriangleOffset()
@@ -23,7 +24,15 @@ local function getTriangleOffset()
 end
 
 local function getTextSubstr(text)
-    return string.sub(text, 1, getNumCharacters())
+    local sub = string.sub(text, 1, getNumCharacters())
+    local last = string.sub(sub, -1)
+
+    -- pause if first time seeing this punctuation and the line isn't completely read yet
+    if prevString ~= sub and string.match(last, "[.,?!]") and sub ~= text then
+        buffer = 0.2
+    end
+    prevString = sub
+    return sub
 end
 
 local rectHeight = (h - padding) / 2
@@ -97,6 +106,14 @@ end
 
 function ui.isLineDone(length)
     return getNumCharacters() >= length
+end
+
+function ui.update(dt)
+    if buffer > 0 then
+        buffer = buffer - dt
+    else
+        ui.time = ui.time + dt
+    end
 end
 
 return ui
